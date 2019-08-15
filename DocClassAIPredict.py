@@ -23,25 +23,20 @@ def freememo():
 def importdata(data_path):
     import pandas as pd
     
-    my_data = pd.read_csv(data_path, sep=',',header=None)
-    path, res = my_data[0], my_data[1]
+    my_data = pd.read_csv('data.csv', sep=',',header=None)
+    path = my_data[0]
     print("\n Metadata Imported \n")
     
-    return path,res
+    return path
 
-def preprocessdata(path,res,test_rate):
-    from sklearn.model_selection import train_test_split
+def preprocessdata(path):
     import numpy as np
-    
-    path_train, path_test, res_train, res_test = train_test_split(path, res, test_size = test_rate)
-    res_train = np.array(res_train)
-    res_test = np.array(res_test)
-    path_train = np.array(path_train)
-    path_test = np.array(path_test)
+
+    path = np.array(path)
     
     print("\n Metadata Processed \n")
     
-    return path_train,path_test,res_train,res_test
+    return path
 
 def getdata(paths,n_data,res):
     from PIL import Image
@@ -75,24 +70,7 @@ def getdata(paths,n_data,res):
         print("\n Data Imported \n")
         return x,y
 
-def createai(output_size):
-    from tensorflow import keras
-    
-    model = keras.Sequential()
-    model.add( keras.layers.Conv2D(64,3) )
-    model.add( keras.layers.MaxPooling2D() )
-    model.add( keras.layers.Conv2D(64,3) )
-    model.add( keras.layers.MaxPooling2D() )
-    model.add( keras.layers.Flatten() )
-    model.add( keras.layers.Dense( 128, activation=keras.activations.relu ))
-    model.add( keras.layers.Dense( output_size , activation=keras.activations.softmax ))
-    
-    model.compile(input_shape=[None,270,205,3], optimizer=keras.optimizers.Adam(), loss=keras.losses.sparse_categorical_crossentropy, metrics=['accuracy'])
-    model.build(input_shape=[None,270,205,3])
-    
-    return model
-
-def weightai(weight_path):
+def createai(weight_path):
     from tensorflow import keras
     
     model = keras.models.load_model(weight_path)
@@ -120,7 +98,7 @@ def printerrors(n_data,result,x_predict,y_predict,labels):
 def main(model):
     
     
-    paths,res = importdata(data_path)
+    paths = importdata(data_path)
     
     path_train,path_test,res_train,res_test = preprocessdata(paths,res,test_rate)
     
@@ -130,10 +108,17 @@ def main(model):
     
     return x_predict,y_predict,result
 
-#model = createai(len(labels))
-model = weightai(weight_path)
+model = createai(weight_path)
 
 x_predict,y_predict,result = main(model)
 
 printerrors(n_predict_data,result,x_predict,y_predict,labels)
 
+
+<<<<<<< Updated upstream
+    my_data = pd.read_csv(data_path, sep=',',header=None)
+    path, res = my_data[0], my_data[1]
+=======
+    my_data = pd.read_csv('data.csv', sep=',',header=None)
+    path = my_data[0]
+>>>>>>> Stashed changes

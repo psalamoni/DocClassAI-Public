@@ -8,8 +8,8 @@ Created on Mon Jun 24 14:27:49 2019
 data_path = 'data.csv'
 labels = ['Alvara','Habite-se','Verso Alvara','Outros']
 test_rate = 0.2
-n_training_data = 3000 #Number of data from training set to be used in order to train ai | To use all data, insert None
-n_testing_data = 1000
+n_training_data = 100 #Number of data from training set to be used in order to train ai | To use all data, insert None
+n_testing_data = 20
 epochs = 10
 
 
