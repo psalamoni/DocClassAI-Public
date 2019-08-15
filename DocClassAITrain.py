@@ -39,7 +39,7 @@ def savemodel(model,evaluation):
 def importdata(data_path):
     import pandas as pd
     
-    my_data = pd.read_csv('data.csv', sep=',',header=None)
+    my_data = pd.read_csv(data_path, sep=',',header=None)
     path, res = my_data[0], my_data[1]
     print("\n Metadata Imported \n")
     
